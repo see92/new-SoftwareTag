@@ -18,7 +18,7 @@
           <template #cell(actions)="data">
             <div class="d-flex justify-content-end">
               <feather-icon icon="EditIcon" :id="`edit_${data.index}`" style="cursor: pointer;" size="16" />
-              <b-tooltip :target="`edit_${data.index}`" placement="left" title="编辑信息" @click="" />
+              <b-tooltip :target="`edit_${data.index}`" placement="left" title="编辑信息" />
             </div>
           </template>
         </b-table>
@@ -32,7 +32,7 @@
             <!-- <input type="number" style="width:50px" /> -->
             <span class="mr-50">前往</span>
             <b-form-input style="height:32px;width:50px" class="mr-50" />
-            <span>页</span>
+            <span class="mr-2">页</span>
           </div>
         </div>
       </div>

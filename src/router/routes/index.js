@@ -36,4 +36,13 @@ export default [
       breadcrumb: [{ text: "进程列表", active: true }],
     },
   },
+  {
+    path: "/softwarelist",
+    name: "softwareList",
+    component: () => import("@/views/softwareList/index"),
+    meta: {
+      pageTitle: "软件列表",
+      breadcrumb: [{ text: "软件列表", active: true }],
+    },
+  },
 ];

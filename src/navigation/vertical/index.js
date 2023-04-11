@@ -14,4 +14,9 @@ export default [
     route: "processList",
     icon: "",
   },
+  {
+    title: "软件列表",
+    route: "softwareList",
+    icon: "",
+  },
 ];
