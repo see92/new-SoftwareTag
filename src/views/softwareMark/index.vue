@@ -4,7 +4,7 @@
       <!-- 头 -->
       <div class="mt-2 ml-2 d-flex justify-content-lg-start">
         <b-form class="d-flex " autocomplete="off">
-          <b-form-input class="w25 mr-1" placeholder="请输入要查询的进程名称" />
+          <b-form-input class="w25 mr-1" placeholder="请输入要查询的软件名称" />
           <v-select style="width:12.5rem" class="mr-1" />
         </b-form>
         <b-button variant="success"> <feather-icon icon="SearchIcon" /> 查询</b-button>
@@ -39,47 +39,38 @@
     </b-overlay>
   </b-card>
 </template>
-
-<script>
+  
+  <script>
 export default {
-  name: 'processList',
+  name: 'softwareMark',
   components: {
   },
   data() {
     return {
       show: false,
       isFields: [
-        { key: 'name', label: '名称' },
-        { key: 'software_name', label: '关联软件' },
+        { key: 'sync_name', label: '软件名称' },
+        { key: 'icon', label: '图标' },
+        { key: 'name', label: '软件正式名称' },
+        { key: 'official_name', label: '发布者正式名称' },
+        { key: 'type_name', label: '软件类别' },
+        { key: 'tags_name', label: '软件标签' },
+        { key: 'payment_type', label: '付费类型' },
         { key: 'filter_traffic', label: '过滤流量' },
-        { key: 'piracy_rules', label: '盗版软件规则' },
-        { key: 'encryption_rules', label: '加密规则' },
-        { key: 'leak_type', label: '涉密类型' },
+        { key: 'positive_level', label: '级别' },
         { key: 'support_des', label: '透明加解密' },
-        { key: 'actions', label: '操作', thStyle: 'width:100px' }
+        { key: 'actions', label: '操作' }
       ],
-      isItems: [
-        { name: '111', software_name: '222', filter_traffic: '333', piracy_rules: "444", encryption_rules: '555', leak_type: '666', support_des: '777' }
-      ],
+      isItems: [],
       count: 1000
     }
   },
 }
-</script>
-
-<style lang="less" scoped>
+  </script>
+  
+  <style lang="less" scoped>
 .w25 {
   width: 25rem !important;
   max-width: 25rem !important;
-}
-</style>
-
-<style lang="less">
-.tableTr td {
-  // background-color: pink;
-  max-width: 10rem;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
 }
 </style>

@@ -37,6 +37,15 @@ export default [
     },
   },
   {
+    path: "/softwaremark",
+    name: "softwareMark",
+    component: () => import("@/views/softwareMark/index"),
+    meta: {
+      pageTitle: "软件标注",
+      breadcrumb: [{ text: "软件标注", active: true }],
+    },
+  },
+  {
     path: "/softwarelist",
     name: "softwareList",
     component: () => import("@/views/softwareList/index"),
