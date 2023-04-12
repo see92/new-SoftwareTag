@@ -21,6 +21,9 @@
               暂无数据
             </div>
           </template>
+          <template #cell(icon)="data">
+            <img :src="`data:image/jpg;base64,${data.item.icon}`" style="width: 30px; height: 30px">
+          </template>
         </b-table>
       </div>
 
@@ -28,7 +31,7 @@
       <div class="d-flex  ml-2 justify-content-between">
         <div>共{{ count }}条</div>
         <div class="d-flex justify-content-between">
-          <b-pagination class="mr-50"></b-pagination>
+          <b-pagination class="mr-50" v-model="page" :per-page="size" :total-rows="count" @change="changePage"></b-pagination>
           <div class="d-flex align-items-baseline">
             <!-- <input type="number" style="width:50px" /> -->
             <span class="mr-50">前往</span>
@@ -42,11 +45,10 @@
 </template>
 
 <script>
+import { softwareList } from "./js/api";
 export default {
   name: 'softwareList',
-  components: {
-
-  },
+  components: {},
   data() {
     return {
       show: false,
@@ -65,7 +67,37 @@ export default {
         { key: 'tags_name', label: '软件标签' },
         { key: 'actions', label: '操作' }
       ],
-      isItems: []
+      isItems: [],
+      page: 1,
+      size: 10,
+      count: 0,
+      searchVal: ''
+    }
+  },
+  mounted() {
+    this.getSoftwareList()
+  },
+  methods: {
+    async getSoftwareList() {
+      this.show = true;
+      try {
+        const { data } = await softwareList({
+          page: this.page,
+          size: this.size,
+          keywords: this.searchVal,
+        })
+        this.count = data.count
+        this.isItems = data.data
+        console.log(data, 'data');
+      } catch (error) {
+
+      }
+      this.show = false
+    },
+    // 点击页码
+    changePage(e) {
+      this.page = e;
+      this.getSoftwareList()
     }
   },
 }
@@ -76,5 +108,14 @@ export default {
 .w25 {
   width: 25rem;
   max-width: 25rem;
+}
+</style>
+
+<style lang="less">
+.tableTr td {
+  max-width: 10rem;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 </style>

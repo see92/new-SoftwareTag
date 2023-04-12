@@ -1,5 +1,13 @@
 export default [
   {
+    path: "/login",
+    name: "login",
+    component: () => import("@/views/Login.vue"),
+    meta: {
+      layout: "full",
+    },
+  },
+  {
     path: "/",
     name: "home",
     component: () => import("@/views/Home.vue"),
@@ -52,6 +60,19 @@ export default [
     meta: {
       pageTitle: "软件列表",
       breadcrumb: [{ text: "软件列表", active: true }],
+    },
+  },
+  {
+    path: "/softwarelist/add",
+    name: "softwareListAdd",
+    component: () => import("@/views/softwareList/softwareInfo"),
+    meta: {
+      pageTitle: "添加",
+      navActiveLink: "softwareList",
+      breadcrumb: [
+        { text: "软件列表", to: "/softwareList" },
+        { text: "添加", active: true },
+      ],
     },
   },
 ];

@@ -21,6 +21,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap/dist/js/bootstrap.min";
 import "@core/scss/vue/libs/vue-select.scss";
 
+/* ------------------------------------ */
+import Select from "@/views/components/select";
+Vue.component("Select", Select);
+/* ------------------------------------ */
+
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 Vue.use(ElementUI);
