@@ -8,4 +8,5 @@ export const newName = {
   filterFlow: "过滤流量",
   leakType: "泄密类型",
   reptileUrl: "爬虫网址",
+  softwareTag: "软件标签",
 };

@@ -12,13 +12,13 @@
 
     .close {
       padding: 0.2rem 0.62rem;
-      box-shadow: 0 5px 20px 0 rgba($black, 0.1);
+      // box-shadow: 0 5px 20px 0 rgba($black, 0.1);
       border-radius: $border-radius;
-      background: $white;
+      // background: $white;
       opacity: 1;
       transition: all 0.23s ease 0.1s;
       position: relative;
-      transform: translate(8px, -2px);
+      transform: translate(-10px, 5px);
 
       // For hover effect of close btn
       &:hover,
@@ -26,7 +26,7 @@
       &:active {
         opacity: 1;
         outline: none;
-        transform: translate(5px, 3px);
+        // transform: translate(5px, 3px);
         box-shadow: none;
       }
     }
@@ -38,7 +38,18 @@
     overflow: visible;
     box-shadow: 0 5px 20px 0 rgba($black, 0.1);
   }
-
+  .modal-content2 {
+    transform: translateX(22%);
+    width: 70%;
+  }
+  .modal-content1 {
+    transform: translateX(22%);
+    width: 70%;
+  }
+  .bodyClass {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
   .modal-footer {
     padding: $modal-inner-padding;
   }
@@ -77,11 +88,10 @@
 // Modal XL
 @media (min-width: 1200px) {
   .modal-xl {
-    margin-left: 3%;
-    margin-right: 3%;
+    // margin-left: 2%;
+    // margin-right: 2%;
   }
 }
-
 // Slide In Modal //
 .modal-slide-in,
 .modal-slide-in .modal {
@@ -101,8 +111,10 @@
     width: ($modal-slide-in-width-sm - 5);
 
     .modal-content {
-      padding-bottom: ($modal-title-line-height * $close-font-size) + $modal-header-padding-y;
-      padding-top: ($modal-title-line-height * $close-font-size) + $modal-header-padding-y;
+      padding-bottom: ($modal-title-line-height * $close-font-size) +
+        $modal-header-padding-y;
+      padding-top: ($modal-title-line-height * $close-font-size) +
+        $modal-header-padding-y;
       overflow: auto;
       border-radius: 0;
       height: 100%;

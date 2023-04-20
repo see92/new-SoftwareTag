@@ -10,7 +10,7 @@
           <input type="file" v-show="false" ref="fileRef" @change="uploadFileWithClear($event)">
         </div>
         <div class="mr-2">
-          <b-button variant="primary"> <feather-icon icon="PlusIcon" @click="isButton(0)" /> 添加</b-button>
+          <b-button variant="primary" @click="isButton(0)"> <feather-icon icon="PlusIcon" /> 添加</b-button>
         </div>
       </div>
 
@@ -24,7 +24,10 @@
           </template>
           <!-- 图片加载 -->
           <template #cell(icon)="data">
-            <img :src="`data:image/jpg;base64,${data.item.icon}`" style="width: 30px; height: 30px">
+
+            <img v-if="data.item.icon" :src="`data:image/jpg;base64,${data.item.icon}`" style="width: 30px; height: 30px">
+            <img v-else src="https://src.onlinedown.net/d/file/20140304/1.jpg" style="width: 30px; height: 30px" />
+
           </template>
           <!-- 付费类型 -->
           <template #cell(payment_type)="data">
@@ -53,9 +56,9 @@
           <!-- 操作 -->
           <template #cell(actions)="data">
             <div class="d-flex">
-              <feather-icon icon="EditIcon" :id="`Edit_${data.index}`" style="cursor:pointer" class="mr-50" @click="isButton(1,data.item)" />
+              <feather-icon icon="EditIcon" :id="`Edit_${data.index}`" style="cursor:pointer" size="16" class="mr-50" @click="isButton(1,data.item)" />
               <b-tooltip :target="`Edit_${data.index}`" title="编辑信息" placement="left" />
-              <feather-icon icon="Trash2Icon" :id="`Trash2_${data.index}`" style="cursor:pointer" @click="isButton(2,data.item)" />
+              <feather-icon icon="Trash2Icon" :id="`Trash2_${data.index}`" style="cursor:pointer" size="16" @click="isButton(2,data.item)" />
               <b-tooltip :target="`Trash2_${data.index}`" title="删除信息" placement="left" />
             </div>
           </template>
@@ -81,8 +84,8 @@
         <b-modal centered hide-footer no-close-on-backdrop v-model="isDelete" size="sm" title="提示：">
           <div class="d-flex justify-content-center">此操作将会删除数据，是否继续？</div>
           <div class="d-flex mt-1 justify-content-end">
-            <b-button variant="danger" class="mr-1">确定</b-button>
-            <b-button variant="outline-danger">取消</b-button>
+            <b-button variant="danger" class="mr-1" @click="del_button(0)">确定</b-button>
+            <b-button variant="outline-danger" @click="del_button(1)">取消</b-button>
           </div>
         </b-modal>
       </div>
@@ -91,7 +94,8 @@
 </template>
 
 <script>
-import { softwareList,offlineJson } from "./js/api";
+import { toast } from "@/assets/js/toast";
+import { softwareList, offlineJson, delSoftwareInfo, softwareIcon } from "./js/api";
 import { payOptions, lvOptions, flowOptions, leakTypeOptions } from "./js/options";
 export default {
   name: 'softwareList',
@@ -116,7 +120,7 @@ export default {
       ],
       isItems: [],
       page: 1,
-      size: 10,
+      size: 50,
       count: 0,
       searchVal: '',
       pageNum: '',
@@ -129,6 +133,7 @@ export default {
       PaymentVariant: { 1: "success", 2: "danger", 3: "warning", 4: "info" },
       supportVariant: { 0: "danger", 1: "success" },
       isDelete: false,  //删除弹窗
+      newIcon: '',
     }
   },
   mounted() {
@@ -175,12 +180,41 @@ export default {
     },
     // 按钮操作
     isButton(flag, data) {
+      const id = data ? data.id : undefined
       if (flag == 0) {
-
+        this.$router.push({
+          name: 'softwareListAdd',
+          query: { flag }
+        })
       } else if (flag == 1) {
-
+        // console.log(id, 'iddddddddd');
+        this.$router.push({
+          name: 'softwareListEdit',
+          query: { flag, id }
+        })
       } else if (flag == 2) {
         this.isDelete = true
+        console.log(data.id);
+        this.delId = data.id
+      }
+    },
+    // 删除按钮操作
+    async del_button(flag) {
+      if (flag == 0) {
+        try {
+          const { status } = await delSoftwareInfo({
+            id: this.delId
+          })
+          if (status == 200) {
+            this.getSoftwareList()
+            toast("CheckIcon", "success", '删除信息成功');
+          }
+        } catch (error) {
+          toast("XCircleIcon", "danger", error)
+        }
+        this.isDelete = false
+      } else {
+        this.isDelete = false
       }
     },
     // 查询操作
@@ -203,12 +237,17 @@ export default {
           keywords: this.searchVal,
         })
         this.count = data.count
+        data.data.forEach(async (e) => {
+          const { data } = await softwareIcon({
+            id: e.id
+          })
+          this.$set(e, 'icon', data)
+        })
         this.isItems = data.data
-      } catch (error) {
-
-      }
+      } catch (error) { }
       this.show = false
     },
+
   },
 }
 </script>

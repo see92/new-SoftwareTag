@@ -45,12 +45,38 @@ export default [
     },
   },
   {
+    path: "/processlist/edit",
+    name: "processlistEdit",
+    component: () => import("@/views/processList/processInfo"),
+    meta: {
+      pageTitle: "修改",
+      navActiveLink: "processList",
+      breadcrumb: [
+        { text: "软件列表", to: "/processList" },
+        { text: "修改", active: true },
+      ],
+    },
+  },
+  {
     path: "/softwaremark",
     name: "softwareMark",
     component: () => import("@/views/softwareMark/index"),
     meta: {
       pageTitle: "软件标注",
       breadcrumb: [{ text: "软件标注", active: true }],
+    },
+  },
+  {
+    path: "/softwaremark/edit",
+    name: "softwareMarkEdit",
+    component: () => import("@/views/softwareMark/softwareInfo"),
+    meta: {
+      pageTitle: "修改",
+      navActiveLink: "softwareMark",
+      breadcrumb: [
+        { text: "软件列表", to: "/softwareMark" },
+        { text: "修改", active: true },
+      ],
     },
   },
   {
@@ -72,6 +98,19 @@ export default [
       breadcrumb: [
         { text: "软件列表", to: "/softwareList" },
         { text: "添加", active: true },
+      ],
+    },
+  },
+  {
+    path: "/softwarelist/edit",
+    name: "softwareListEdit",
+    component: () => import("@/views/softwareList/softwareInfo"),
+    meta: {
+      pageTitle: "修改",
+      navActiveLink: "softwareList",
+      breadcrumb: [
+        { text: "软件列表", to: "/softwareList" },
+        { text: "修改", active: true },
       ],
     },
   },

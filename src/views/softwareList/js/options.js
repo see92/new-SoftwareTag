@@ -27,7 +27,7 @@ const leakTypeOptions = [
 ];
 
 const supportOptions = [
-  { text: "支持", value: 1 },
-  { text: "不支持", value: 0 },
+  { name: "支持", id: 1 },
+  { name: "不支持", id: 0 },
 ];
 export { payOptions, lvOptions, flowOptions, leakTypeOptions, supportOptions };
